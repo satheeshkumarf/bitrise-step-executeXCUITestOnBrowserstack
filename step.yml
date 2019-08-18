@@ -28,10 +28,9 @@ host_os_tags:
 # that means the step can be used for any project type.
 # You can find more information about project type tags in the Step Development Guideline:
 # https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
-#
-# project_type_tags:
-#   - ios
-#   - macos
+project_type_tags:
+  - ios
+  - macos
 #   - android
 #   - xamarin
 #   - react-native
@@ -60,28 +59,61 @@ deps:
 
 toolkit:
   bash:
-    entry_file: step.sh
+    entry_file: browserstack.sh
 
 
 inputs:
-  - example_step_input: Default Value - you can leave this empty if you want to
+  - BROWSERSTACK_APP_URL: 
     opts:
-      title: "Example Step Input"
-      summary: Summary. No more than 2-3 sentences.
-      description: |
-        Description of this input.
-
-        Can be Markdown formatted text.
+      title: "Browserstack IPA URL"
+      summary: IPA URL of the APP uploaded to Browserstack Server. You can use browserstack-upload bitrise step to upload your ipa.
       is_expand: true
       is_required: true
-      value_options: []
+
+  - TESTS_FIILE_PATH: 
+    opts:
+      title: "Test File Path"
+      summary: Specifiy the path to file name which contains your test and device details. Use .txt file to specify your test name and device details separated by equal to sign.
+      description: |
+        Sample File format:
+            SearchListingsTest/testXYZ=iPhone 6-11.2
+            SearchFilterTest/testABC=iPhone XS-12.1
+
+      is_expand: true
+      is_required: true  
+
+  - BROWSERSTACK_XCTEST_URL: 
+    opts:
+      title: "Specify the XCUITest url from browserstack"
+      summary: Build your XCUITEST and publish it to Browserstack; Specify the test_url path returned from browserstack in this variable
+      is_expand: true
+      is_required: true
+
+  - BROWSERSTACK_USERNAME: 
+    opts:
+      title: "Browserstack Username"
+      is_expand: true
+      is_required: true 
+
+  - BROWSERSTACK_PASSWORD: 
+    opts:
+      title: "Browserstack Access Key"
+      is_expand: true
+      is_required: true
+
+  - RETRY_COUNT: 0
+    opts:
+      title: "Retry count for failed tests"
+      summary: By default retry count is set as zero, which will not re-execute faiiled tests. If you specify a value greater than zero, only the failed tests will be re-executed to see if the issue was a random flakiness.  
+      is_expand: true
+      is_required: true 
 
 outputs:
-  - EXAMPLE_STEP_OUTPUT:
-    opts:
-      title: "Example Step Output"
-      summary: Summary. No more than 2-3 sentences.
-      description: |
-        Description of this output.
+  #- EXAMPLE_STEP_OUTPUT:
+    #opts:
+      #title: "Example Step Output"
+      #summary: Summary. No more than 2-3 sentences.
+      #description: |
+      #  Description of this output.
 
-        Can be Markdown formatted text.
+      # Can be Markdown formatted text.
