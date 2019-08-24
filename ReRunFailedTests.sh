@@ -57,10 +57,10 @@ echo $Test_Result_Status
 passed_count=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.SUCCESS")
 if [[ $passed_count -ge 1 ]]; then
 echo "${build_id} passed";
-    else
+else
 echo "${build_id} failed";
 echo $device_name"="$test_execution_input >> FailedTestsInRerun.txt;
-    fi
+fi
 done < "$result_file"
 rm FailedTests.txt
 if [ -f "$failed_in_rerun" ]; then

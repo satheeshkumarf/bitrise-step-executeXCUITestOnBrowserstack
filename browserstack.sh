@@ -67,11 +67,10 @@ echo "Test with BuildID -${build_id} Failed.";
 echo $device_name"="$test_execution_input >> FailedTests.txt;
     fi
 done < "$result_file"
-
-for i in {1..$RETRY_COUNT}
+for ((i=1;i<=${RETRY_COUNT};i++));
 do
 if [ -f "$failed_tests" ]; then
-    echo "Test Failed, Executing re-run "$i;
+    echo "Test Failed, Executing re-run "$i" for following tests";
     sh ./ReRunFailedTests.sh;
 else
     break
@@ -79,8 +78,8 @@ fi
 done
 if [ -f "$failed_tests" ]; then
 echo "Following UI Tests Failed. Please check";
-pkill -f BrowserStack.*
-cat FailedTests.txt
+cat FailedTests.txt;
+pkill -f BrowserStack.*;
 exit 1;
 else
 echo "Test Passed";
