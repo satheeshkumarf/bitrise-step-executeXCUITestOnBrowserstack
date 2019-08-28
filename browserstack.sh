@@ -17,8 +17,8 @@ test_name=${line[0]}
 device_name=${line[1]}
 echo "============================================================================================"
 echo "Trigerring Test - "$test_name" on device - "$device_name
-test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$BROWSERSTACK_APP_URL\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"true\", \"testSuite\": \"$BROWSERSTACK_XCTEST_URL\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\"}"
-build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $BROWSERSTACK_USERNAME:$BROWSERSTACK_PASSWORD)
+test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"true\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\"}"
+build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $browserstack_username:$browserstack_password)
 echo $build_result
 build_status=$(jq -n "$build_result" | jq .message)
 build_status_temp="${build_status%\"}"
@@ -34,7 +34,7 @@ else
     temp_build_id="${temp#\"}"
     echo $temp_build_id"="$device_name"="$test_execution_input >> BrowserstackResults.txt
 fi
-done < "$TESTS_FIILE_PATH"
+done < "$tests_file_path"
 echo "============================================================================================"
 echo "Waiting for tests to finish execution.."
 while IFS='=' read -ra line
@@ -46,7 +46,7 @@ test_execution_input=${line[2]}
 for ((i=1;i<=30;i++));
 do
 sleep 20s;
-Test_Result_Status=$(curl -u $BROWSERSTACK_USERNAME:$BROWSERSTACK_PASSWORD -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/builds/${build_id}");
+Test_Result_Status=$(curl -u $browserstack_username:$browserstack_password -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/builds/${build_id}");
 Test_Status=$(jq -n "$Test_Result_Status" | jq .status)
 temp_status="${Test_Status%\"}"
 temp_status="${temp_status#\"}"
@@ -67,7 +67,7 @@ echo "Test with BuildID -${build_id} Failed.";
 echo $device_name"="$test_execution_input >> FailedTests.txt;
     fi
 done < "$result_file"
-for ((i=1;i<=${RETRY_COUNT};i++));
+for ((i=1;i<=${retry_count};i++));
 do
 if [ -f "$failed_tests" ]; then
     echo "Test Failed, Executing re-run "$i" for following tests";

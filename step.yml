@@ -12,7 +12,7 @@ title: |-
 summary: |
   Execute XCUITests on Browserstack Platform with retry logic
 description: |
-  This step will help you to execute ios Automation Tests XCUITests on Browserstack platform. Automatically manages device queue and retries failed tests based on the configured value also reports test status.
+  This step will help you to execute iOS UI Automation tests on Browserstack platform. Automatically manages device queue and retries failed tests and also reports test status.
 website: https://github.com/satheeshkumarf/bitrise-step-executexcuitestonbrowserstack
 source_code_url: https://github.com/satheeshkumarf/bitrise-step-executexcuitestonbrowserstack
 support_url: https://github.com/satheeshkumarf/bitrise-step-executexcuitestonbrowserstack/issues
@@ -56,50 +56,50 @@ toolkit:
 
 
 inputs:
-  - BROWSERSTACK_APP_URL: 
+  - browserstack_app_url: 
     opts:
-      title: "Browserstack IPA URL"
-      summary: IPA URL of the APP uploaded to Browserstack Server. You can use browserstack-upload bitrise step to upload your ipa.
+      title: "Browserstack ipa url"
+      summary: IPA url of the app uploaded to Browserstack Server. You can use browserstack-upload bitrise step to upload your ipa.
       is_expand: true
       is_required: true
 
-  - TESTS_FIILE_PATH: 
+  - tests_file_path: 
     opts:
-      title: "Test File Path"
-      summary: Specifiy the path to file name which contains your test and device details. Use .txt file to specify your test name and device details separated by equal to sign.
+      title: "Test file path"
+      summary: Specifiy path to the file which contains your test and device details. Use .txt file to specify your test name and device details separated by equal to sign.
       description: |
-        Sample File format:
+        Sample file format:
             SearchListingsTest/testXYZ=iPhone 6-11.2
             SearchFilterTest/testABC=iPhone XS-12.1
 
       is_expand: true
       is_required: true  
 
-  - BROWSERSTACK_XCTEST_URL: 
+  - browserstack_xcuitest_url: 
     opts:
-      title: "Specify the XCUITest url from browserstack"
-      summary: Build your XCUITEST and publish it to Browserstack; Specify the test_url path returned from browserstack in this variable
+      title: "Browserstack xcuitest url"
+      summary: Build your XCUITests and publish it to Browserstack sever. Specify the test_url path returned from browserstack in this variable.
       is_expand: true
       is_required: true
 
-  - BROWSERSTACK_USERNAME: 
+  - browserstack_username: 
     opts:
-      title: "Browserstack Username"
+      title: "Browserstack username"
       is_expand: true
       is_required: true 
       is_sensitive: true
 
-  - BROWSERSTACK_PASSWORD: 
+  - browserstack_password: 
     opts:
-      title: "Browserstack Access Key"
+      title: "Browserstack access key"
       is_expand: true
       is_required: true
       is_sensitive: true
 
-  - RETRY_COUNT: 0
+  - retry_count: 0
     opts:
       title: "Retry count for failed tests"
-      summary: By default retry count is set as zero, which will not re-execute faiiled tests. If you specify a value greater than zero, only the failed tests will be re-executed to see if the issue was a random flakiness.  
+      summary: By default retry count is set as zero, which will not re-execute failed tests. If you specify a value greater than zero, only the failed tests will be re-executed to see if the issue was a random flakiness.  
       is_expand: true
       is_required: true 
 

@@ -14,7 +14,7 @@ device_name=${line[0]}
 test_execution_input=${line[1]}
 echo "============================================================================================"
 echo "Trigerring Test .."
-build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $BROWSERSTACK_USERNAME:$BROWSERSTACK_PASSWORD)
+build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $browserstack_username:$browserstack_password)
 echo $build_result
 build_status=$(jq -n "$build_result" | jq .message)
 build_status_temp="${build_status%\"}"
@@ -42,7 +42,7 @@ test_execution_input=${line[2]}
 for ((i=1;i<=30;i++));
 do
 sleep 20s;
-Test_Result_Status=$(curl -u $BROWSERSTACK_USERNAME:$BROWSERSTACK_PASSWORD -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/builds/${build_id}");
+Test_Result_Status=$(curl -u $browserstack_username:$browserstack_password -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/builds/${build_id}");
 
 Test_Status=$(jq -n "$Test_Result_Status" | jq .status)
 temp_status="${Test_Status%\"}"
