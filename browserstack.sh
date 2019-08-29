@@ -1,5 +1,6 @@
 #!/bin⁩/bash
 set -e
+THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 result_file="BrowserstackResults.txt"
 failed_tests="FailedTests.txt"
 BUILD_IDENTIFIER=${BITRISE_BUILD_NUMBER}"_"${BITRISE_GIT_BRANCH}
@@ -71,7 +72,7 @@ for ((i=1;i<=${retry_count};i++));
 do
 if [ -f "$failed_tests" ]; then
     echo "Test Failed, Executing re-run "$i" for following tests";
-    sh ./ReRunFailedTests.sh;
+    sh ${THIS_SCRIPT_DIR}/ReRunFailedTests.sh;
 else
     break
 fi
