@@ -96,6 +96,13 @@ inputs:
       is_required: true
       is_sensitive: true
 
+  - browserstack_local: false
+    opts:
+      title: "Enable local testing feature of Browserstack"
+      summary: Set this value to true for enabling testing on your private test environment.  
+      is_expand: true
+      is_required: true    
+
   - retry_count: 0
     opts:
       title: "Retry count for failed tests"
