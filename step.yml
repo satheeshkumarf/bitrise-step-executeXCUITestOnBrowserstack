@@ -96,14 +96,17 @@ inputs:
       is_required: true
       is_sensitive: true
 
-  - browserstack_local: false
+  - browserstack_local: "false"
     opts:
       title: "Enable local testing feature of Browserstack"
+      value_options:
+        - "true"
+        - "false"
       summary: Set this value to true for enabling testing on your private test environment.  
       is_expand: true
       is_required: true    
-
-  - retry_count: 0
+      
+  - retry_count: "0"
     opts:
       title: "Retry count for failed tests"
       summary: By default retry count is set as zero, which will not re-execute failed tests. If you specify a value greater than zero, only the failed tests will be re-executed to see if the issue was a random flakiness.  
