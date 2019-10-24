@@ -26,7 +26,7 @@ build_status_temp="${build_status%\"}"
 final_build_status="${build_status_temp#\"}"
 if [[ $final_build_status == *"All parallel tests are currently in use"* ]] ; then
     echo "adding test to the build queue "$test_name
-    echo $test_name"="$device_name >> $TESTS_FIILE_PATH
+    echo $test_name"="$device_name >> $tests_file_path
     echo "Waiting for 15 Seconds ...."
     sleep 15s;
 else
