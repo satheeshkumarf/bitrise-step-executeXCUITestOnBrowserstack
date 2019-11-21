@@ -18,7 +18,7 @@ test_name=${line[0]}
 device_name=${line[1]}
 echo "============================================================================================"
 echo "Trigerring Test - "$test_name" on device - "$device_name
-test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"$browserstack_local\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\"}"
+test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"$browserstack_local\", \"localIdentifier\" : \"$browserstack_local_id\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\"}"
 build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $browserstack_username:$browserstack_password)
 echo $build_result
 build_status=$(jq -n "$build_result" | jq .message)

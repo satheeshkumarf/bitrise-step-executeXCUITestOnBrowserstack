@@ -104,7 +104,13 @@ inputs:
         - "false"
       summary: Set this value to true for enabling testing on your private test environment.  
       is_expand: true
-      is_required: true    
+      is_required: true
+
+  - browserstack_local_id:  
+    opts:
+        title: "Specify unique local connection name"
+        is_expand: true
+        is_required: false      
       
   - retry_count: "0"
     opts:
