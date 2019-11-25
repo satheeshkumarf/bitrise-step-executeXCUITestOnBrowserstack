@@ -18,7 +18,6 @@ source_code_url: https://github.com/satheeshkumarf/bitrise-step-executexcuitesto
 support_url: https://github.com/satheeshkumarf/bitrise-step-executexcuitestonbrowserstack/issues
 host_os_tags:
   - osx-10.10
-  - ubuntu-16.04
 
 # If this step should be available only for certain project types
 # just uncomment this `project_type_tags` section and include all the
@@ -78,7 +77,7 @@ inputs:
   - browserstack_xcuitest_url: 
     opts:
       title: "Browserstack xcuitest url"
-      summary: Build your XCUITests and publish it to Browserstack sever. Specify the test_url path returned from browserstack in this variable.
+      summary: Build your XCUITests and publish it to Browserstack server. Specify the test_url path returned from browserstack in this variable.
       is_expand: true
       is_required: true
 
