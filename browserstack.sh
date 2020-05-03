@@ -44,7 +44,7 @@ build_id=${line[0]}
 device_name=${line[1]}
 test_execution_input=${line[2]}
 
-for ((i=1;i<=30;i++));
+for ((i=1;i<=100;i++));
 do
 sleep 20s;
 Test_Result_Status=$(curl -u $browserstack_username:$browserstack_password -X GET "https://api-cloud.browserstack.com/app-automate/xcuitest/builds/${build_id}");
