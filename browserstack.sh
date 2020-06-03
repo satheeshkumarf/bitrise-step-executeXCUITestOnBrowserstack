@@ -60,8 +60,11 @@ break
 fi
 done
 
-passed_count=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.passed")
-if [[ $passed_count -ge 1 ]]; then
+passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.passed")
+passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.SUCCESS")
+if [[ $passed_count_v1 -ge 1 ]]; then
+echo "Test with BuildID - ${build_id} Passed.";
+    elif [[ $passed_count_v2 -ge 1 ]]; then
 echo "Test with BuildID - ${build_id} Passed.";
     else
 echo "Test with BuildID -${build_id} Failed.";
