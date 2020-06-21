@@ -12,10 +12,18 @@ if [ -f "$failed_tests" ]; then
 rm FailedTests.txt
 fi
 
+queue_controler=0
 while IFS='=' read -ra line
 do
 test_name=${line[0]}
 device_name=${line[1]}
+
+queue_controler=$(($queue_controler + 1))
+if [[ $queue_controler -ge 10 ]]; then
+    sleep 120s;
+    queue_controler=1
+fi
+
 echo "============================================================================================"
 echo "Trigerring Test - "$test_name" on device - "$device_name
 test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"$browserstack_local\", \"localIdentifier\" : \"$browserstack_local_id\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\"}"
@@ -59,6 +67,10 @@ echo "Checking Test Results...";
 break
 fi
 done
+
+echo "*************START: API Response from Browserstack*************"
+echo $Test_Result_Status
+echo "*************END: API Response from Browserstack****************"
 
 passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.passed")
 passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.SUCCESS")
