@@ -109,7 +109,19 @@ inputs:
     opts:
         title: "Specify unique local connection name"
         is_expand: true
-        is_required: false      
+        is_required: false
+        
+  - browserstack_env_var: "ENVIRONMENT_VARIABLE_NAME"
+    opts:
+        title: "Specify environemnt variable name to be set while executing tests on Browserstack"
+        is_expand: true
+        is_required: false
+        
+  - browserstack_env_value: "ENVIRONMENT_VARIABLE_VALUE"
+    opts:
+        title: "Specify environemnt variable value to be set while executing tests on Browserstack"
+        is_expand: true
+        is_required: false
       
   - retry_count: "0"
     opts:
