@@ -72,8 +72,8 @@ echo "*************START: API Response from Browserstack*************"
 echo $Test_Result_Status
 echo "*************END: API Response from Browserstack****************"
 
-passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.passed")
-passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".devices.\"${device_name}\".test_status.SUCCESS")
+passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".[][].test_status.passed")
+passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".[][].test_status.SUCCESS")
 if [[ $passed_count_v1 -ge 1 ]]; then
 echo "Test with BuildID - ${build_id} Passed.";
     elif [[ $passed_count_v2 -ge 1 ]]; then
