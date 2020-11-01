@@ -26,7 +26,7 @@ fi
 
 echo "============================================================================================"
 echo "Trigerring Test - "$test_name" on device - "$device_name
-test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"$browserstack_local\", \"localIdentifier\" : \"$browserstack_local_id\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\" , \"setEnvVariables\" : {\"$browserstack_env_var\":\"$browserstack_env_value\"}}"
+test_execution_input="{\"devices\": [\"${device_name}\"], \"app\": \"$browserstack_app_url\", \"only-testing\" : [\"${test_name}\"], \"deviceLogs\" : \"true\", \"local\" : \"$browserstack_local\", \"localIdentifier\" : \"$browserstack_local_id\", \"testSuite\": \"$browserstack_xcuitest_url\", \"customBuildName\" : \"${BUILD_IDENTIFIER}\" , \"setEnvVariables\" : {\"$browserstack_env_vars\"}}"
 build_result=$(curl -X POST https://api-cloud.browserstack.com/app-automate/xcuitest/build -d "${test_execution_input}" -H 'Content-Type: application/json' -u $browserstack_username:$browserstack_password)
 echo $build_result
 build_status=$(jq -n "$build_result" | jq .message)
@@ -72,8 +72,8 @@ echo "*************START: API Response from Browserstack*************"
 echo $Test_Result_Status
 echo "*************END: API Response from Browserstack****************"
 
-passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".[][].test_status.passed")
-passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".[][].test_status.SUCCESS")
+passed_count_v1=$(jq -n "$Test_Result_Status" | jq ".devices | .[].test_status.passed")
+passed_count_v2=$(jq -n "$Test_Result_Status" | jq ".devices | .[].test_status.SUCCESS")
 if [[ $passed_count_v1 -ge 1 ]]; then
 echo "Test with BuildID - ${build_id} Passed.";
     elif [[ $passed_count_v2 -ge 1 ]]; then

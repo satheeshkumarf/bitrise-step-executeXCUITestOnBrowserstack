@@ -111,15 +111,9 @@ inputs:
         is_expand: true
         is_required: false
         
-  - browserstack_env_var: "ENVIRONMENT_VARIABLE_NAME"
+  - browserstack_env_vars: "ENVIRONMENT_VARIABLES"
     opts:
-        title: "Specify environemnt variable name to be set while executing tests on Browserstack"
-        is_expand: true
-        is_required: false
-        
-  - browserstack_env_value: "ENVIRONMENT_VARIABLE_VALUE"
-    opts:
-        title: "Specify environemnt variable value to be set while executing tests on Browserstack"
+        title: "Specify environemnt variables to be set while executing tests on Browserstack"
         is_expand: true
         is_required: false
       
